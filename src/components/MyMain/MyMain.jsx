@@ -2,11 +2,11 @@ import { useState } from "react";
 import Welcome from "../Welcome/Welcome";
 import AllTheBooks from "../AllTheBooks/AllTheBooks";
 import MyDropdown from "../MyDropdown/MyDropdown";
-import MyForm from "../MyForm/MyForm";
+
 import { Container, Row, Col } from "react-bootstrap";
 const MyMain = () => {
   const [showedBooks, setShowedBooks] = useState("Fantasy");
-  const [limitBooks, setLimitBooks] = useState(20);
+
   return (
     <Container>
       <Welcome text="Welcome to" strongText="EpiBooks page" variant="info" />
@@ -17,12 +17,9 @@ const MyMain = () => {
             setShowedBooks={setShowedBooks}
           />
         </Col>
-        <Col>
-          <MyForm limitBooks={limitBooks} setLimitBooks={setLimitBooks} />
-        </Col>
       </Row>
 
-      <AllTheBooks showedBooks={showedBooks} limitBooks={limitBooks} />
+      <AllTheBooks showedBooks={showedBooks} />
     </Container>
   );
 };
