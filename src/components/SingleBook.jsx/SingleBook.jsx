@@ -1,12 +1,21 @@
 import { Container, Col, Card, Button } from "react-bootstrap";
 import { useState } from "react";
 import "./SingleBook.css";
+import CommentArea from "../CommentArea/CommentArea";
 
 const SingleBook = ({ book }) => {
   const [selected, setSelected] = useState(false);
-  const { title, category, img } = book;
+  const { title, category, img, asin } = book;
   return (
     <Col>
+      {selected && (
+        <CommentArea
+          title={title}
+          show={selected}
+          setShow={setSelected}
+          asin={asin}
+        ></CommentArea>
+      )}
       <Card
         onClick={() => setSelected(!selected)}
         className={selected ? "border border-danger border-4" : ""}
