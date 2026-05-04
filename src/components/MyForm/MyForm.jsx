@@ -47,9 +47,9 @@ function MyForm({ limitBooks, setLimitBooks, searchQuery, setSearchQuery }) {
       <MyToast
         onClose={() => setShowToast(false)}
         show={showToast}
-        errText="Errore"
+        text="Errore"
         type="danger"
-        errDescription="Il numero di libri deve essere maggiore di 0"
+        description="Il numero di libri deve essere maggiore di 0"
       />
     </>
   );

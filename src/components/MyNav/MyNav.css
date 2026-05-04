@@ -1,0 +1,36 @@
+.nav-item-custom {
+    cursor: pointer;
+}
+
+.nav-label {
+    z-index: 0;
+    bottom: -15px;
+    opacity: 0;
+    transition: all 0.3s ease-in;
+    transform: translateY(20px);
+
+}
+
+span.nav-label {
+    color: #333333
+}
+
+.nav-item-custom:hover .nav-label {
+    opacity: 1;
+    transform: translateY(0);
+
+}
+
+
+.nav-icon {
+    transition: transform 0.3s ease;
+}
+
+.nav-item-custom:hover .nav-icon {
+    transform: translateY(-3px);
+
+}
+
+.nav-pill-shadow {
+    box-shadow: 2px 10px 16px #8eecff;
+}

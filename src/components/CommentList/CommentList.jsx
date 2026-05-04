@@ -1,27 +1,26 @@
-import { Star, CircleUserRound } from "lucide-react";
+import SingleComment from "../SingleComment/SingleComment";
 
-const CommentList = ({ comments }) => {
-  console.log(comments);
+const CommentList = ({
+  comments,
+  getComments,
+  triggerToast,
+  editingId,
+  setEditingId,
+}) => {
   return (
     <>
       {comments.map(({ _id, author, rate, comment }) => (
-        <div
-          className="d-flex flex-column gap-3 mt-4 border rounded p-3 bg-dark-subtle"
+        <SingleComment
           key={_id}
-        >
-          <div className="d-flex align-items-center gap-3">
-            <CircleUserRound />
-            <p className="mb-0">Autore: {author}</p>
-          </div>
-
-          <p className="mb-0">Ha scritto: {comment}</p>
-          <div className="d-flex gap-1">
-            {" "}
-            {[...Array(rate)].map((value, index) => {
-              return <Star key="index" color="yellow" fill="yellow" />;
-            })}
-          </div>
-        </div>
+          author={author}
+          rate={rate}
+          comment={comment}
+          id={_id}
+          getComments={getComments}
+          triggerToast={triggerToast}
+          editingId={editingId}
+          setEditingId={setEditingId}
+        />
       ))}
     </>
   );
