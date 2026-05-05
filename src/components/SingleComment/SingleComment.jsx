@@ -1,7 +1,8 @@
 import { Star, CircleUserRound, Trash2, PencilLine } from "lucide-react";
 import CommentForm from "../CommentForm/CommentForm";
 
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 const SingleComment = ({
   id,
@@ -13,6 +14,7 @@ const SingleComment = ({
   editingId,
   setEditingId,
 }) => {
+  const { computedCommentBg } = useContext(ThemeContext);
   const auth = {
     Authorization:
       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OWQ1NTUzNmJhMGYxMjAwMTUyZTc3NmQiLCJpYXQiOjE3Nzc1NTU5NDcsImV4cCI6MTc3ODc2NTU0N30.P8chELuZEVUSgPBmeAHEh2EMr7q5KXFy1w2DblgzQKo",
@@ -99,7 +101,9 @@ const SingleComment = ({
           isEditForm={true}
         />
       ) : (
-        <div className="d-flex flex-column gap-3 mt-4 border rounded p-3 bg-dark-subtle">
+        <div
+          className={`d-flex flex-column gap-3 mt-4 border rounded p-3  ${computedCommentBg}`}
+        >
           <div className="d-flex align-items-center gap-3">
             <CircleUserRound />
             <p className="mb-0">Autore: {author}</p>

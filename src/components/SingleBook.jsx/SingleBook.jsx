@@ -1,9 +1,11 @@
 import { Container, Col, Card, Button } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "./SingleBook.css";
 import CommentArea from "../CommentArea/CommentArea";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 const SingleBook = ({ book }) => {
+  const { computedVariant } = useContext(ThemeContext);
   const [selected, setSelected] = useState(false);
   const { title, category, img, asin } = book;
   return (
@@ -24,7 +26,7 @@ const SingleBook = ({ book }) => {
         <Card.Body>
           <Card.Title>{title}</Card.Title>
           <Card.Text>{category}</Card.Text>
-          <Button variant="primary">Acquista</Button>
+          <Button variant={computedVariant}>Acquista</Button>
         </Card.Body>
       </Card>
     </Col>

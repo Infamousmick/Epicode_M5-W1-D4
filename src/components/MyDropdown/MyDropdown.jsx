@@ -1,14 +1,20 @@
 import { Form, Dropdown } from "react-bootstrap";
+import { useContext } from "react";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 function MyDropdown({ showedBooks, setShowedBooks }) {
   const handleDrodown = (e) => {
     setShowedBooks(e.target.textContent);
   };
+
+  const { computedTextClass, computedVariant } = useContext(ThemeContext);
   return (
     <>
-      <Form.Label>Seleziona categoria:</Form.Label>
+      <Form.Label className={computedTextClass}>
+        Seleziona categoria:
+      </Form.Label>
       <Dropdown>
-        <Dropdown.Toggle variant="info" id="dropdown-basic">
+        <Dropdown.Toggle variant={computedVariant} id="dropdown-basic">
           Scegli Categoria
         </Dropdown.Toggle>
 

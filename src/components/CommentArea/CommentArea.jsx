@@ -1,13 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import CommentList from "../CommentList/CommentList";
 import AddComment from "../AddComment/AddComment";
 import { Alert, Spinner } from "react-bootstrap";
 import MyToast from "../MyToast/MyToast";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 function CommentArea({ title, show, setShow, asin }) {
   const handleClose = () => setShow(false);
+  const { computedMainBg, computedTextClass } = useContext(ThemeContext);
 
   const [comments, setComments] = useState([]);
 
@@ -66,11 +68,15 @@ function CommentArea({ title, show, setShow, asin }) {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        contentClassName={`${computedMainBg} ${computedTextClass}`}
+      >
         <Modal.Header closeButton>
           <Modal.Title>
-            Commenti per libro:
-            <strong className="text-warning fst-italic">{title}</strong>
+            Commenti per libro
+            <strong className="text-warning fst-italic"> {title}</strong>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

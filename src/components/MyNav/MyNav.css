@@ -11,9 +11,7 @@
 
 }
 
-span.nav-label {
-    color: #333333
-}
+
 
 .nav-item-custom:hover .nav-label {
     opacity: 1;
@@ -31,6 +29,12 @@ span.nav-label {
 
 }
 
+
+
 .nav-pill-shadow {
+    box-shadow: 2px 10px 16px #0D6EFD;
+}
+
+.nav-pill-shadow.light {
     box-shadow: 2px 10px 16px #8eecff;
 }

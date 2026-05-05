@@ -1,6 +1,7 @@
 import { Form, Button } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Star } from "lucide-react";
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 const CommentForm = ({
   form,
@@ -12,12 +13,13 @@ const CommentForm = ({
   isEditForm,
   editingId,
 }) => {
+  const { computedVariant, computedFormClass } = useContext(ThemeContext);
   const [hover, setHover] = useState(0);
 
   return (
     <Form
       onSubmit={handleSubmit}
-      className={editingId !== null && !isEditForm ? "opacity-50" : ""}
+      className={`${editingId !== null && !isEditForm ? "opacity-50" : ""} ${computedFormClass}`}
     >
       <fieldset disabled={editingId !== null && !isEditForm}>
         <Form.Group className="mb-3">
@@ -58,7 +60,7 @@ const CommentForm = ({
             })}
           </div>
         </Form.Group>
-        <Button variant="primary" type="submit" disabled={!isFormValid}>
+        <Button variant={computedVariant} type="submit" disabled={!isFormValid}>
           Submit
         </Button>
         {isEditForm ? (
