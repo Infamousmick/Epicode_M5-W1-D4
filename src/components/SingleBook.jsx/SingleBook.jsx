@@ -1,26 +1,27 @@
-import { Container, Col, Card, Button } from "react-bootstrap";
+import { Container, Card, Button } from "react-bootstrap";
 import { useState, useContext } from "react";
 import "./SingleBook.css";
-import CommentArea from "../CommentArea/CommentArea";
+
 import { ThemeContext } from "../../contexts/ThemeContext";
 
-const SingleBook = ({ book }) => {
+const SingleBook = ({ book, selectedAsin, setSelectedAsin }) => {
   const { computedVariant } = useContext(ThemeContext);
-  const [selected, setSelected] = useState(false);
+  const toggleAsin = () => {
+    if (selectedAsin === book.asin) {
+      setSelectedAsin(null);
+    } else {
+      setSelectedAsin(book.asin);
+    }
+  };
+
   const { title, category, img, asin } = book;
   return (
-    <Col>
-      {selected && (
-        <CommentArea
-          title={title}
-          show={selected}
-          setShow={setSelected}
-          asin={asin}
-        ></CommentArea>
-      )}
+    <>
       <Card
-        onClick={() => setSelected(!selected)}
-        className={selected ? "border border-danger border-4" : ""}
+        onClick={toggleAsin}
+        className={
+          selectedAsin === book.asin ? "border border-2 border-danger" : ""
+        }
       >
         <Card.Img variant="top" src={img} />
         <Card.Body>
@@ -29,7 +30,7 @@ const SingleBook = ({ book }) => {
           <Button variant={computedVariant}>Acquista</Button>
         </Card.Body>
       </Card>
-    </Col>
+    </>
   );
 };
 

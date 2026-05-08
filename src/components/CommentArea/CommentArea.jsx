@@ -1,14 +1,11 @@
 import { useState, useEffect, useContext } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
 import CommentList from "../CommentList/CommentList";
 import AddComment from "../AddComment/AddComment";
 import { Alert, Spinner } from "react-bootstrap";
 import MyToast from "../MyToast/MyToast";
 import { ThemeContext } from "../../contexts/ThemeContext";
 
-function CommentArea({ title, show, setShow, asin }) {
-  const handleClose = () => setShow(false);
+function CommentArea({ asin }) {
   const { computedMainBg, computedTextClass } = useContext(ThemeContext);
 
   const [comments, setComments] = useState([]);
@@ -63,23 +60,25 @@ function CommentArea({ title, show, setShow, asin }) {
   };
 
   useEffect(() => {
-    getComments();
+    if (asin) {
+      setForm((prev) => ({ ...prev, elementId: asin }));
+      getComments();
+    }
   }, [asin]);
 
   return (
-    <>
-      <Modal
-        show={show}
-        onHide={handleClose}
-        contentClassName={`${computedMainBg} ${computedTextClass}`}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>
-            Commenti per libro
-            <strong className="text-warning fst-italic"> {title}</strong>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+    <div
+      className={`p-4 rounded-4 shadow-sm border ${computedMainBg} ${computedTextClass}`}
+    >
+      <h2 className="mb-4 text-center">Area Commenti</h2>
+
+      {!asin ? (
+        <Alert variant="info" className="text-center shadow-sm">
+          👈 Seleziona un libro dalla griglia per visualizzare e aggiungere
+          recensioni.
+        </Alert>
+      ) : (
+        <>
           <AddComment
             form={form}
             setForm={setForm}
@@ -88,7 +87,11 @@ function CommentArea({ title, show, setShow, asin }) {
             triggerToast={triggerToast}
             editingId={editingId}
           />
-          {isLoading && !err && <Spinner className="mt-4" animation="grow" />}
+          {isLoading && !err && (
+            <div className="text-center mt-4">
+              <Spinner animation="grow" variant="info" />
+            </div>
+          )}
           {!isLoading && !err && (
             <CommentList
               comments={comments}
@@ -103,13 +106,9 @@ function CommentArea({ title, show, setShow, asin }) {
               Errore nel caricamento dei commenti
             </Alert>
           )}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        </>
+      )}
+
       <MyToast
         show={toastConfig.show}
         text={toastConfig.text}
@@ -117,7 +116,7 @@ function CommentArea({ title, show, setShow, asin }) {
         type={toastConfig.type}
         description={toastConfig.description}
       />
-    </>
+    </div>
   );
 }
 

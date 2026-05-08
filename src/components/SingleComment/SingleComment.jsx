@@ -102,24 +102,30 @@ const SingleComment = ({
         />
       ) : (
         <div
-          className={`d-flex flex-column gap-3 mt-4 border rounded p-3  ${computedCommentBg}`}
+          className={`d-flex flex-column gap-3 mt-4 rounded p-3 shadow-sm ${computedCommentBg}`}
         >
           <div className="d-flex align-items-center gap-3">
-            <CircleUserRound />
-            <p className="mb-0">Autore: {author}</p>
-            <div className="d-flex gap-2">
+            <CircleUserRound className="flex-shrink-0" />
+            <p className="mb-0 text-truncate flex-grow-1">Autore: {author}</p>
+            <div className="d-flex gap-2 ms-auto flex-flex-shrink-0">
               {editingId === null && (
                 <PencilLine
                   onClick={() => setEditingId(id)}
                   size="20"
                   color="orange"
+                  style={{ cursor: "pointer" }}
                 />
               )}
-              <Trash2 size="20" color="red" onClick={handleDelete} />
+              <Trash2
+                size="20"
+                color="red"
+                onClick={handleDelete}
+                style={{ cursor: "pointer" }}
+              />
             </div>
           </div>
 
-          <p className="mb-0">Ha scritto: {comment}</p>
+          <p className="mb-0 text-break fst-italic">Ha scritto: {comment}</p>
           <div className="d-flex gap-1">
             {[...Array(5)].map((value, index) => {
               const starValue = index + 1;
