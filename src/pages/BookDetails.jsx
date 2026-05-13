@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { Container, Row, Col, Card, Alert } from "react-bootstrap";
 import BaseLayout from "../Layout/BaseLayout";
 import CommentArea from "../components/CommentArea/CommentArea";
