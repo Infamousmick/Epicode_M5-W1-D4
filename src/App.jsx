@@ -1,24 +1,22 @@
-import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import BaseLayout from "./Layout/BaseLayout";
-import MyMain from "./components/MyMain/MyMain";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import NotFoundPage from "./pages/NotFoundPage";
+import Homepage from "./pages/Homepage";
+import BookDetails from "./pages/BookDetails";
+
 import { ThemeContext, ThemeProvider } from "./contexts/ThemeContext";
-
 function App() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [limitBooks, setLimitBooks] = useState(5);
-
   return (
     <>
       <ThemeProvider>
-        <BaseLayout
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          limitBooks={limitBooks}
-          setLimitBooks={setLimitBooks}
-        >
-          <MyMain searchQuery={searchQuery} limitBooks={limitBooks} />
-        </BaseLayout>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Homepage />} />
+            <Route path="/details/:asin" element={<BookDetails />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </BrowserRouter>
       </ThemeProvider>
     </>
   );

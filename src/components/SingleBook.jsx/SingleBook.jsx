@@ -1,10 +1,12 @@
 import { Container, Card, Button } from "react-bootstrap";
 import { useState, useContext } from "react";
 import "./SingleBook.css";
-
 import { ThemeContext } from "../../contexts/ThemeContext";
+import { useNavigate } from "react-router-dom";
 
 const SingleBook = ({ book, selectedAsin, setSelectedAsin }) => {
+  let navigate = useNavigate();
+
   const { computedVariant } = useContext(ThemeContext);
   const toggleAsin = () => {
     if (selectedAsin === book.asin) {
@@ -18,16 +20,21 @@ const SingleBook = ({ book, selectedAsin, setSelectedAsin }) => {
   return (
     <>
       <Card
-        onClick={toggleAsin}
-        className={
-          selectedAsin === book.asin ? "border border-2 border-danger" : ""
-        }
+        className={`single-book-card ${selectedAsin === book.asin ? "border border-2 border-danger" : ""}`}
       >
         <Card.Img variant="top" src={img} />
         <Card.Body>
           <Card.Title>{title}</Card.Title>
           <Card.Text>{category}</Card.Text>
-          <Button variant={computedVariant}>Acquista</Button>
+          <Button
+            variant={computedVariant}
+            onClick={() => {
+              toggleAsin();
+              navigate(`/details/${book.asin}`);
+            }}
+          >
+            Vedi dettagli
+          </Button>
         </Card.Body>
       </Card>
     </>

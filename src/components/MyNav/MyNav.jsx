@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { useLocation, NavLink } from "react-router-dom";
 import {
   House,
   Info,
@@ -14,6 +15,7 @@ import MyForm from "../MyForm/MyForm";
 import { ThemeContext } from "../../contexts/ThemeContext";
 
 function MyNav({ searchQuery, setSearchQuery, limitBooks, setLimitBooks }) {
+  const location = useLocation();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const {
     isDark,
@@ -31,10 +33,13 @@ function MyNav({ searchQuery, setSearchQuery, limitBooks, setLimitBooks }) {
     <>
       <div className={`${computedMainBg} pb-2`}>
         <nav className={`container d-flex justify-content-center pt-4`}>
-          <ul
+          <div
             className={`d-flex justify-content-evenly gap-4 ${computedNavBg} ${isDark ? "" : "light"} py-3 px-5 rounded-pill list-unstyled mb-0 nav-pill-shadow col-md-8 col-lg-6`}
           >
-            <li className="nav-item-custom position-relative d-flex justify-content-center">
+            <NavLink
+              to="/"
+              className="nav-item-custom position-relative d-flex justify-content-center"
+            >
               <House
                 color={computedNavIconColor}
                 size={28}
@@ -45,8 +50,11 @@ function MyNav({ searchQuery, setSearchQuery, limitBooks, setLimitBooks }) {
               >
                 Home
               </span>
-            </li>
-            <li className="nav-item-custom position-relative d-flex justify-content-center">
+            </NavLink>
+            <NavLink
+              to="/about"
+              className="nav-item-custom position-relative d-flex justify-content-center"
+            >
               <Info
                 color={computedNavIconColor}
                 size={28}
@@ -57,8 +65,11 @@ function MyNav({ searchQuery, setSearchQuery, limitBooks, setLimitBooks }) {
               >
                 About
               </span>
-            </li>
-            <li className="nav-item-custom position-relative d-flex justify-content-center">
+            </NavLink>
+            <NavLink
+              to="/browse"
+              className="nav-item-custom position-relative d-flex justify-content-center"
+            >
               <Compass
                 color={computedNavIconColor}
                 size={28}
@@ -69,23 +80,28 @@ function MyNav({ searchQuery, setSearchQuery, limitBooks, setLimitBooks }) {
               >
                 Browse
               </span>
-            </li>
-            <li
-              className="nav-item-custom position-relative d-flex justify-content-center"
-              onClick={() => setIsSearchOpen(!isSearchOpen)}
-            >
-              <Search
-                color={computedNavIconColor}
-                size={28}
-                className="nav-icon"
-              />
-              <span
-                className={`nav-label position-absolute fw-bold ${computedTextClass}`}
+            </NavLink>
+            {!location.pathname.startsWith("/details/") && (
+              <div
+                className="nav-item-custom position-relative d-flex justify-content-center"
+                onClick={() => setIsSearchOpen(!isSearchOpen)}
               >
-                Search
-              </span>
-            </li>
-            <li className="nav-item-custom position-relative d-flex justify-content-center">
+                <Search
+                  color={computedNavIconColor}
+                  size={28}
+                  className="nav-icon"
+                />
+                <span
+                  className={`nav-label position-absolute fw-bold ${computedTextClass}`}
+                >
+                  Search
+                </span>
+              </div>
+            )}
+            <NavLink
+              to="/cart"
+              className="nav-item-custom position-relative d-flex justify-content-center"
+            >
               <ShoppingCart
                 color={computedNavIconColor}
                 size={28}
@@ -96,8 +112,8 @@ function MyNav({ searchQuery, setSearchQuery, limitBooks, setLimitBooks }) {
               >
                 Cart
               </span>
-            </li>
-            <li
+            </NavLink>
+            <div
               className="nav-item-custom position-relative d-flex justify-content-center"
               onClick={toggleDarkTheme}
             >
@@ -111,8 +127,8 @@ function MyNav({ searchQuery, setSearchQuery, limitBooks, setLimitBooks }) {
               >
                 {computedThemeName}
               </span>
-            </li>
-          </ul>
+            </div>
+          </div>
         </nav>
         <Collapse in={isSearchOpen}>
           <Container
