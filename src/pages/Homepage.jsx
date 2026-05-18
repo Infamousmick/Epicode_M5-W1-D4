@@ -3,7 +3,7 @@ import MyMain from "../components/MyMain/MyMain";
 import BaseLayout from "../Layout/BaseLayout";
 const Homepage = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [limitBooks, setLimitBooks] = useState(5);
+  const [limitBooks, setLimitBooks] = useState(0);
   return (
     <BaseLayout
       searchQuery={searchQuery}

@@ -20,7 +20,9 @@ const SingleBook = ({ book, selectedAsin, setSelectedAsin }) => {
   return (
     <>
       <Card
+        data-testid="book-card"
         className={`single-book-card ${selectedAsin === book.asin ? "border border-2 border-danger" : ""}`}
+        onClick={toggleAsin}
       >
         <Card.Img variant="top" src={img} />
         <Card.Body>

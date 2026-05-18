@@ -5,7 +5,7 @@ import horror from "../../books/horror.json";
 import romance from "../../books/romance.json";
 import scifi from "../../books/scifi.json";
 import { Container, Col, Row } from "react-bootstrap";
-import SingleBook from "../SingleBook.jsx/SingleBook";
+import SingleBook from "../SingleBook/SingleBook";
 
 import MyForm from "../MyForm/MyForm";
 
@@ -34,7 +34,7 @@ const AllTheBooks = ({ showedBooks, searchQuery, limitBooks }) => {
                 .toLowerCase()
                 .includes(searchQuery.toLocaleLowerCase()),
             )
-            .slice(0, limitBooks)
+            .slice(0, limitBooks == 0 ? undefined : limitBooks)
             .reverse()
             .map((book) => {
               return (
