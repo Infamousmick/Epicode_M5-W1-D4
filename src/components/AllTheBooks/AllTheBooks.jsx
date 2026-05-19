@@ -6,6 +6,7 @@ import romance from "../../books/romance.json";
 import scifi from "../../books/scifi.json";
 import { Container, Col, Row } from "react-bootstrap";
 import SingleBook from "../SingleBook/SingleBook";
+import EmptyState from "../EmptyState/EmptyState";
 
 import MyForm from "../MyForm/MyForm";
 
@@ -22,31 +23,31 @@ const AllTheBooks = ({ showedBooks, searchQuery, limitBooks }) => {
 
   const [selectedAsin, setSelectedAsin] = useState(null);
   const { computedTextClass } = useContext(ThemeContext);
+  const filteredBooks = bookCategories[showedBooks.toLowerCase()]
+    .filter((book) =>
+      book.title.toLowerCase().includes(searchQuery.toLocaleLowerCase()),
+    )
+    .slice(0, limitBooks == 0 ? undefined : limitBooks)
+    .reverse();
 
   return (
     <>
       <Container className="pb-5">
         <h2 className={computedTextClass}>{showedBooks}</h2>
         <Row className="gy-4">
-          {bookCategories[showedBooks.toLowerCase()]
-            .filter((book) =>
-              book.title
-                .toLowerCase()
-                .includes(searchQuery.toLocaleLowerCase()),
-            )
-            .slice(0, limitBooks == 0 ? undefined : limitBooks)
-            .reverse()
-            .map((book) => {
-              return (
-                <Col xs={6} md={4} lg={3} key={book.asin}>
-                  <SingleBook
-                    book={book}
-                    selectedAsin={selectedAsin}
-                    setSelectedAsin={setSelectedAsin}
-                  />
-                </Col>
-              );
-            })}
+          {filteredBooks.length === 0 ? (
+            <EmptyState searchQuery={searchQuery} />
+          ) : (
+            filteredBooks.map((book) => (
+              <Col xs={6} md={4} lg={3} key={book.asin}>
+                <SingleBook
+                  book={book}
+                  selectedAsin={selectedAsin}
+                  setSelectedAsin={setSelectedAsin}
+                />
+              </Col>
+            ))
+          )}
         </Row>
       </Container>
     </>
